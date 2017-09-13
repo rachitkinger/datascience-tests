@@ -1,0 +1,35 @@
+---
+title: "Daily Commute"
+author: "Rachit Kinger"
+date: "13 September 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Route Markers on Daily Cycling Commute
+
+This is a interactive map of route markers that I come across in my daily commute. It includes notes and mental comments about things like busy intersections, distractions, pubs for Friday evening stops, cafes for breakfast options and general takeaway options on the way back home.    
+
+### How to use the interactive map  
+Hovering over a waypoint displays what is there e.g. pub, intersection, cafe, etc.  
+Clicking on a waypoint displays a comment about the waypoint and a personal note on why it is an important waypoint.  
+
+
+Hope you enjoy it.  
+
+
+```{r echo=FALSE, eval = TRUE}
+df <- read.csv("route-markers.csv", header = TRUE)
+names(df)[c(2,3)] <- c("lat", "lng")
+```
+
+```{r echo = TRUE, eval = TRUE}
+library(leaflet)
+df %>% leaflet() %>% 
+    addTiles() %>% 
+    addMarkers(popup= df$Comment
+               , label = df$Type)
+```
